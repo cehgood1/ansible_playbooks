@@ -1,0 +1,6 @@
+---
+- name: Apply Role to Configure on all Cisco Routers
+  hosts: myciscodevices-group
+  gather_facts: no
+  roles:
+    - assign_ip

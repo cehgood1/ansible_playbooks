@@ -1,0 +1,29 @@
+---
+
+- name: Assigning IP on Cisco IOS Router
+  hosts: my-group1
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - name: Configure IP
+      ios_config:
+        lines:
+          - interface GigabitEthernet0/1
+          - ip address 50.50.50.1 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet0/1
+      register: result
+
+    - name: Verification
+      ios_command:
+        commands:
+          - show ip interface brief
+      register: show
+
+    - name: print the result
+      debug:
+        msg: "{{ result }}"
+
+    - name: print the result
+      debug:
+        msg: "{{ show }}"
